@@ -48,6 +48,7 @@ For each field specified as an array you can specify:
 
 Example 1:
 
+<pre>
 do_action( 'facetious', array(
 	'submit' => 'Search',
 	'fields' => array(
@@ -57,9 +58,11 @@ do_action( 'facetious', array(
 		'custom_tax_2'
 	)
 ) );
+</pre>
 
 Example 2:
 
+<pre>
 do_action( 'facetious', array(
 	'submit' => 'Search',
 	'fields' => array(
@@ -74,3 +77,4 @@ do_action( 'facetious', array(
 		'm'
 	)
 ) );
+</pre>
