@@ -1,6 +1,6 @@
 # What is Facetious?
 
-Facetious lets you add a *facet*ed - often called an 'advanced' - search form to your WordPress website. It comes with a ready-to-use sidebar widget, plus a number of implementation options for developers.
+Facetious lets you add a faceted - often called an 'advanced' - search form to your WordPress website. It comes with a ready-to-use sidebar widget, plus a number of implementation options for developers.
 
 A Facetious form can include dropdown lists of:
 
@@ -41,10 +41,28 @@ Each item in the 'fields' array can be either:
 
 For each field specified as an array you can specify:
 
-'label' - string - The descriptive text for this field. Defaults to the name of the taxonomy.
-'class' - string - The class name for the field.
-'id'    - string - The ID attribute for the field.
-'all'   - string - The "All items" text for this field. Defaults to the 'all_items' label of the taxonomy.
+<table>
+	<tr>
+		<td> **label** </td>
+		<td> *string* </td>
+		<td>The descriptive text for this field. Defaults to the name of the taxonomy.</td>
+	</tr>
+	<tr>
+		<td> **class** </td>
+		<td> *string* </td>
+		<td>The class name for the field.</td>
+	</tr>
+	<tr>
+		<td> **id** </td>
+		<td> *string* </td>
+		<td>The ID attribute for the field.</td>
+	</tr>
+	<tr>
+		<td> **all** </td>
+		<td> *string* </td>
+		<td>The "All items" text for this field. Defaults to the 'all_items' label of the taxonomy.</td>
+	</tr>
+</table>
 
 Example 1:
 
