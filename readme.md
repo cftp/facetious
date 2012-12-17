@@ -43,23 +43,23 @@ For each field specified as an array you can specify:
 
 <table>
 	<tr>
-		<td> **label** </td>
-		<td> *string* </td>
+		<td><strong>label</strong></td>
+		<td><em>string</em></td>
 		<td>The descriptive text for this field. Defaults to the name of the taxonomy.</td>
 	</tr>
 	<tr>
-		<td> **class** </td>
-		<td> *string* </td>
+		<td><strong>class</strong></td>
+		<td><em>string</em></td>
 		<td>The class name for the field.</td>
 	</tr>
 	<tr>
-		<td> **id** </td>
-		<td> *string* </td>
+		<td><strong>id</strong></td>
+		<td><em>string</em></td>
 		<td>The ID attribute for the field.</td>
 	</tr>
 	<tr>
-		<td> **all** </td>
-		<td> *string* </td>
+		<td><strong>all</strong></td>
+		<td><em>string</em></td>
 		<td>The "All items" text for this field. Defaults to the 'all_items' label of the taxonomy.</td>
 	</tr>
 </table>
