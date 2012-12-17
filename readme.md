@@ -1,6 +1,6 @@
 # What is Facetious?
 
-Facetious lets you add a _facet_ed - often called an 'advanced' - search form to your WordPress website. It comes with a ready-to-use sidebar widget, plus a number of implementation options for developers.
+Facetious lets you add a *facet*ed - often called an 'advanced' - search form to your WordPress website. It comes with a ready-to-use sidebar widget, plus a number of implementation options for developers.
 
 A Facetious form can include dropdown lists of:
 
@@ -48,7 +48,7 @@ For each field specified as an array you can specify:
 
 Example 1:
 
-```do_action( 'facetious', array(
+do_action( 'facetious', array(
 	'submit' => 'Search',
 	'fields' => array(
 		's',
@@ -56,11 +56,11 @@ Example 1:
 		'custom_tax_1',
 		'custom_tax_2'
 	)
-) );```
+) );
 
 Example 2:
 
-```do_action( 'facetious', array(
+do_action( 'facetious', array(
 	'submit' => 'Search',
 	'fields' => array(
 		's',
@@ -73,4 +73,4 @@ Example 2:
 		'custom_tax_2',
 		'm'
 	)
-) );```
+) );
