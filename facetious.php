@@ -3,7 +3,7 @@
 Plugin Name:  Facetious Search
 Plugin URI:   https://github.com/cftp/facetious
 Description:  A faceted search interface for WordPress
-Version:      1.0.3
+Version:      1.1
 Author:       <a href="http://johnblackbourn.com/">John Blackbourn</a> and <a href="http://codeforthepeople.com/">Code for the People</a>
 Text Domain:  facetious
 Domain Path:  /languages/
@@ -215,6 +215,10 @@ class Facetious extends Facetious_Plugin {
 
 		foreach ( $this->parse_search( $query['facetious'] ) as $key => $val )
 			$query[$key] = $val;
+
+		# Some plugins (eg. WPML) use $_GET['s'] directly, so we'll manually set it here to play nicely.
+		if ( isset( $query['s'] ) )
+			$_GET['s'] = $query['s'];
 
 		return $query;
 

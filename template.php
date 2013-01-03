@@ -121,12 +121,19 @@ function facetious( $args = array() ) {
 				if ( empty( $tax ) )
 					continue;
 
-				$terms = get_terms( $key, array(
-					'hide_empty' => false
-				) );
+				if ( !isset( $val['options'] ) ) {
 
-				if ( empty( $terms ) )
-					continue;
+					$terms = get_terms( $key, array(
+						'hide_empty' => false
+					) );
+
+					if ( empty( $terms ) )
+						continue;
+
+					foreach ( $terms as $term )
+						$val['options'][$term->slug] = $term->name;
+
+				}
 
 				if ( empty( $val['label'] ) or ( true === $val['label'] ) )
 					$val['label'] = $tax->labels->singular_name;
@@ -151,11 +158,11 @@ function facetious( $args = array() ) {
 				$out .= sprintf( '<option value="">%s</option>',
 					esc_html( $val['all'] )
 				);
-				foreach ( $terms as $term ) {
+				foreach ( $val['options'] as $value => $label ) {
 					$out .= sprintf( '<option value="%s"%s>%s</option>',
-						esc_attr( $term->slug ),
-						selected( $term->slug, get_query_var( $tax->query_var ), false ),
-						esc_html( $term->name )
+						esc_attr( $value ),
+						selected( $value, get_query_var( $tax->query_var ), false ),
+						esc_html( $label )
 					);
 				}
 				$out .= '</select>';
