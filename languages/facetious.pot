@@ -1,0 +1,85 @@
+# Copyright (C) 2013 Facetious Search
+# This file is distributed under the same license as the Facetious Search package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Facetious Search 1.0.3\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/facetious\n"
+"POT-Creation-Date: 2013-01-07 11:14:04+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#. #-#-#-#-#  facetious.pot (Facetious Search 1.0.3)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: class.widget.php:15
+msgid "Facetious Search"
+msgstr ""
+
+#: class.widget.php:16
+msgid "A faceted search form for your site"
+msgstr ""
+
+#: class.widget.php:58
+msgid "Keyword Search"
+msgstr ""
+
+#: class.widget.php:64 template.php:84
+msgid "Month"
+msgstr ""
+
+#: class.widget.php:79
+msgid "No Restriction"
+msgstr ""
+
+#: class.widget.php:98
+msgid "Search"
+msgstr ""
+
+#: class.widget.php:99 template.php:16
+msgid "Go"
+msgstr ""
+
+#: class.widget.php:106
+msgid "Widget Title:"
+msgstr ""
+
+#: class.widget.php:115
+msgid "Submit Button:"
+msgstr ""
+
+#: class.widget.php:123
+msgid "Fields:"
+msgstr ""
+
+#: class.widget.php:145
+msgid "Post Type:"
+msgstr ""
+
+#: template.php:55
+msgid "Search by keyword"
+msgstr ""
+
+#: template.php:90
+msgid "Any Month"
+msgstr ""
+
+#: template.php:223
+msgid "%1$s %2$d"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/cftp/facetious"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "A faceted search interface for WordPress"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid ""
+"<a href=\"http://johnblackbourn.com/\">John Blackbourn</a> and <a href="
+"\"http://codeforthepeople.com/\">Code for the People</a>"
+msgstr ""
