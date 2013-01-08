@@ -10,7 +10,7 @@ A Facetious form can include dropdown lists of:
 
 You can also restrict it by post type _(singular)_, if you so desire.
 
-Additionally, Facetious introduces some extra 'pretty permalink' structures around search queries, which may help if you're using a caching plugin like WP Super Cache. Also, they look a heck of a lot friendlier than `?s=polly&amp;post_type=pet&category=bird`. (You don't even have to have a faceted search form on your site to benefit from these, by the way.)
+Additionally, Facetious introduces some extra 'pretty permalink' structures around search queries, which may help if you're using a caching plugin like WP Super Cache. Also, they look a heck of a lot friendlier than `?s=polly&amp;post_type=pet&amp;category=bird`. (You don't even have to have a faceted search form on your site to benefit from these, by the way.)
 
 Please note - Facetious isn't a replacement search engine; it helps you construct the search query, but then it's over to WordPress to run the actual search.
 
