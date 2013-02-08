@@ -44,7 +44,7 @@ Developers can use a template function to output a Facetious search form and hav
 
 The main template function for outputting a Facetious search form is `facetious( $args )`. If you want to ensure the site doesn't break if the Facetious plugin is deactivated, you can use `do_action( 'facetious', $args );` instead.
 
-`$args` is an array of arguments thus:
+'$args' is an array of arguments thus:
 
  * 'submit' - string  - The text for the submit button.
  * 'echo'   - boolean - Whether to echo the form out or not.
@@ -104,6 +104,12 @@ You can install this plugin directly from your WordPress dashboard:
  4. Activate the plugin.
 
 Alternatively, see the guide to [Manually Installing Plugins](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation).
+
+= Usage =
+
+The simplest way to add a Facetious search form is to add the Facetious widget to your sidebar. You'll see a complete list of options so you can choose which fields to include in your search form.
+
+Please see the full plugin description for advanced usage.
 
 == Frequently Asked Questions ==
 
