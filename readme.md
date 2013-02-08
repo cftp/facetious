@@ -34,6 +34,8 @@ Facetious is a product of [Code For The People Ltd](http://codeforthepeople.com)
 
 ... which is why we're keen to offer it for wider public use.
 
+[Fork me on GitHub!](http://github.com/cftp/facetious)
+
 = Usage =
 
 The simplest way to add a Facetious search form is to add the Facetious widget to your sidebar. You'll see a complete list of options so you can choose which fields to include in your search form.
@@ -116,6 +118,10 @@ Please see the full plugin description for advanced usage.
 = Does this plugin play nicely with WPML? =
 
 Yep.
+
+= Where can I help out with development? =
+
+[Fork me on GitHub!](http://github.com/cftp/facetious) We welcome pull requests.
 
 == Screenshots ==
 
