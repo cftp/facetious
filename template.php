@@ -84,7 +84,7 @@ function facetious( $args = array() ) {
 							$post_types[ $pt ] = $pto;
 					}
 				} else {
-					$post_type_names = get_post_types( array( 'public' => true ) );
+					$post_type_names = get_post_types( array( 'publicly_queryable' => true ) );
 					foreach ( $post_type_names as $pt ) {
 						if ( is_object( $pto = get_post_type_object( $pt ) ) )
 							$post_types[ $pt ] = $pto;
