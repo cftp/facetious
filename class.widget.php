@@ -62,6 +62,7 @@ class Facetious_Widget extends WP_Widget {
 			$fields[$tax->name] = $tax->labels->singular_name;
 
 		$fields['m'] = __( 'Month', 'facetious' );
+		$fields['pt'] = __( 'Post type', 'facetious' );
 
 		return $fields;
 
