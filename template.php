@@ -28,7 +28,7 @@ function facetious( $args = array() ) {
 
 	$out .= '>';
 
-	if ( isset( $args['post_type'] ) and( '-1' !== $args['post_type'] ) )
+	if ( isset( $args['post_type'] ) and( '-1' !== $args['post_type'] ) and ! isset( $args['post_type'][ 'pt' ] ) )
 		$out .= sprintf( '<input type="hidden" name="post_type" value="%s" />', esc_attr( reset( $args['post_type'] ) ) );
 
 	foreach ( $args['fields'] as $key => $val ) {
@@ -68,6 +68,61 @@ function facetious( $args = array() ) {
 					esc_attr( $val['class'] ),
 					esc_attr( $val['id'] )
 				);
+				$out .= '</p>';
+
+				break;
+
+			# Post type dropdown:
+			case 'pt':
+
+				$post_types = array();
+				if ( isset( $val[ 'values' ] ) ) {
+					if ( ! is_array( $val[ 'values' ] ) )
+						$val[ 'values' ] = (array) $val[ 'values' ];
+					foreach ( $val[ 'values' ] as $pt ) {
+						if ( is_object( $pto = get_post_type_object( $pt ) ) )
+							$post_types[ $pt ] = $pto;
+					}
+				} else {
+					$post_type_names = get_post_types( array( 'public' => true ) );
+					foreach ( $post_type_names as $pt ) {
+						if ( is_object( $pto = get_post_type_object( $pt ) ) )
+							$post_types[ $pt ] = $pto;
+					}
+				}
+
+				if ( empty( $post_types ) )
+					continue;
+
+				if ( empty( $val['label'] ) or ( true === $val['label'] ) )
+					$val['label'] = __( 'Filter by type', 'facetious' );
+				if ( !isset( $val['class'] ) )
+					$val['class'] = 'facetious_filter facetious_filter_post_type';
+				if ( !isset( $val['id'] ) )
+					$val['id'] = 'facetious_filter_post_type';
+				if ( !isset( $val['all'] ) )
+					$val['all'] = __( 'All types', 'facetious' );
+
+				$out .= sprintf( '<p class="%s">', 'facetious_post_type' );
+				$out .= sprintf( '<label for="%1$s">%2$s</label>',
+					esc_attr( $val['id'] ),
+					$val['label']
+				);
+				$out .= sprintf( '<select name="post_type" class="%1$s" id="%2$s" />',
+					esc_attr( $val['class'] ),
+					esc_attr( $val['id'] )
+				);
+				$out .= sprintf( '<option value="">%s</option>',
+					esc_html( $val['all'] )
+				);
+				foreach ( $post_types as $pt => $pto ) {
+					$out .= sprintf( '<option value="%s"%s>%s</option>',
+						esc_attr( $pt ),
+						selected( $pt, get_query_var( 'post_type' ), false ),
+						esc_html( $pto->labels->name )
+					);
+				}
+				$out .= '</select>';
 				$out .= '</p>';
 
 				break;
@@ -237,5 +292,3 @@ function facetious_get_available_months( $post_type = null ) {
 	return $available_months;
 
 }
-
-?>
