@@ -95,6 +95,8 @@ class Facetious extends Facetious_Plugin {
 
 		# Build the array containing alternating keys and values
 		foreach ( $wp_query->query as $key => $val ) {
+			if ( 'post_type' == $key )
+				continue;
 			// var_dump( $key );
 			if ( '' !== $val ) {
 				$parts[] = $this->get_search_part( $key );
