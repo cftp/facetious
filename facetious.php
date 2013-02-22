@@ -62,9 +62,9 @@ class Facetious extends Facetious_Plugin {
 	 * @author Simon Wheatley
 	 **/
 	function parse_request( $wp ) {
-		if ( isset( $wp->query_vars[ 'fcts_post_type' ] ) ) {
-			$wp->query_vars[ 'post_type' ] = $wp->query_vars[ 'fcts_post_type' ];
-			// unset( $wp->query_vars[ 'fcts_post_type' ] );
+		if ( isset( $wp->query_vars[ 'facetious_post_type' ] ) ) {
+			$wp->query_vars[ 'post_type' ] = $wp->query_vars[ 'facetious_post_type' ];
+			// unset( $wp->query_vars[ 'facetious_post_type' ] );
 		}
 	}
 
@@ -181,7 +181,7 @@ class Facetious extends Facetious_Plugin {
 		if ( !isset( $this->search_parts ) ) {
 			$this->search_parts = apply_filters( 'facetious_search_parts', array(
 				'paged'          => 'page',
-				'fcts_post_type' => 'type',
+				'facetious_post_type' => 'type',
 				'category_name'  => 'category',
 				'm'              => 'month',
 				's'              => 'keyword',
@@ -218,7 +218,7 @@ class Facetious extends Facetious_Plugin {
 	 **/
 	function query_vars( $vars ) {
 		$vars[] = 'facetious';
-		$vars[] = 'fcts_post_type';
+		$vars[] = 'facetious_post_type';
 		return $vars;
 	}
 
