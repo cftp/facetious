@@ -40,6 +40,7 @@ class Facetious extends Facetious_Plugin {
 		# Actions:
 		add_action( 'init',                 array( $this, 'init' ) );
 		add_action( 'admin_init',           array( $this, 'maybe_upgrade' ) );
+		add_action( 'parse_request',        array( $this, 'parse_request' ) );
 		add_action( 'template_redirect',    array( $this, 'template_redirect' ) );
 		add_action( 'facetious',            'facetious' );
 
@@ -51,6 +52,20 @@ class Facetious extends Facetious_Plugin {
 		# Set up the plugin from the parent class:
 		parent::__construct( __FILE__ );
 
+	}
+
+	/**
+	 * Redirects a client to a pretty URL after performing a Facetious search
+	 *
+	 * @param object $wp An object of the WP class
+	 * @return null
+	 * @author Simon Wheatley
+	 **/
+	function parse_request( $wp ) {
+		if ( isset( $wp->query_vars[ 'fcts_post_type' ] ) ) {
+			$wp->query_vars[ 'post_type' ] = $wp->query_vars[ 'fcts_post_type' ];
+			// unset( $wp->query_vars[ 'fcts_post_type' ] );
+		}
 	}
 
 	/**
@@ -80,6 +95,7 @@ class Facetious extends Facetious_Plugin {
 
 		# Build the array containing alternating keys and values
 		foreach ( $wp_query->query as $key => $val ) {
+			// var_dump( $key );
 			if ( '' !== $val ) {
 				$parts[] = $this->get_search_part( $key );
 				$parts[] = urlencode( stripslashes( $val ) );
@@ -91,10 +107,12 @@ class Facetious extends Facetious_Plugin {
 		if ( 2 == count( $parts ) and in_array( $this->get_search_part( 's' ), $parts ) )
 			array_shift( $parts );
 
+		// var_dump( $parts ); exit;
+
 		$parts = implode( '/', $parts );
 
 		wp_redirect( untrailingslashit( home_url() ) . "/{$base}/{$parts}/" );
-		exit();
+		exit;
 
 	}
 
@@ -160,11 +178,11 @@ class Facetious extends Facetious_Plugin {
 
 		if ( !isset( $this->search_parts ) ) {
 			$this->search_parts = apply_filters( 'facetious_search_parts', array(
-				'paged'         => 'page',
-				'post_type'     => 'type',
-				'category_name' => 'category',
-				'm'             => 'month',
-				's'             => 'keyword',
+				'paged'          => 'page',
+				'fcts_post_type' => 'type',
+				'category_name'  => 'category',
+				'm'              => 'month',
+				's'              => 'keyword',
 			) );
 		}
 
@@ -198,6 +216,7 @@ class Facetious extends Facetious_Plugin {
 	 **/
 	function query_vars( $vars ) {
 		$vars[] = 'facetious';
+		$vars[] = 'fcts_post_type';
 		return $vars;
 	}
 

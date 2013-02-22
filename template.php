@@ -29,7 +29,7 @@ function facetious( $args = array() ) {
 	$out .= '>';
 
 	if ( isset( $args['post_type'] ) and( '-1' !== $args['post_type'] ) and ! isset( $args['post_type'][ 'pt' ] ) )
-		$out .= sprintf( '<input type="hidden" name="post_type" value="%s" />', esc_attr( reset( $args['post_type'] ) ) );
+		$out .= sprintf( '<input type="hidden" name="fcts_post_type" value="%s" />', esc_attr( reset( $args['post_type'] ) ) );
 
 	foreach ( $args['fields'] as $key => $val ) {
 
@@ -84,7 +84,7 @@ function facetious( $args = array() ) {
 							$post_types[ $pt ] = $pto;
 					}
 				} else {
-					$post_type_names = get_post_types( array( 'publicly_queryable' => true ) );
+					$post_type_names = get_post_types( array( 'public' => true ) );
 					foreach ( $post_type_names as $pt ) {
 						if ( is_object( $pto = get_post_type_object( $pt ) ) )
 							$post_types[ $pt ] = $pto;
@@ -108,7 +108,7 @@ function facetious( $args = array() ) {
 					esc_attr( $val['id'] ),
 					$val['label']
 				);
-				$out .= sprintf( '<select name="post_type" class="%1$s" id="%2$s" />',
+				$out .= sprintf( '<select name="fcts_post_type" class="%1$s" id="%2$s" />',
 					esc_attr( $val['class'] ),
 					esc_attr( $val['id'] )
 				);
