@@ -48,25 +48,25 @@ The main template function for outputting a Facetious search form is `facetious(
 
 '$args' is an array of arguments thus:
 
- * 'submit' - string  - The text for the submit button.
- * 'echo'   - boolean - Whether to echo the form out or not.
- * 'class'  - string  - The class name for the form.
- * 'id'     - string  - The ID attribute for the form.
- * 'fields' - array   - A list of fields to show in the form. See below.
+ * `submit` - string  - The text for the submit button.
+ * `echo`   - boolean - Whether to echo the form out or not.
+ * `class`  - string  - The class name for the form.
+ * `id`     - string  - The ID attribute for the form.
+ * `fields` - array   - A list of fields to show in the form. See below.
 
 Each item in the 'fields' array can be either:
 
  * A string name of a taxonomy
  * An array of details for the field (see below)
- * One of 's', 'm' or 'pt' for the keyword search input, month dropdown and post type dropdown respectively
+ * One of `s`, `m` or `pt` for the keyword search input, month dropdown and post type dropdown respectively
 
 For each field specified as an array you can specify:
  
- * label - string - The descriptive text for this field. Defaults to the name of the taxonomy, or 'All types' for post types..
- * class - string - The class name for the field.
- * id    - string - The ID attribute for the field.
- * all   - string - The "All items" text for this field. Defaults to the 'all_items' label of the taxonomy.
- * value - array  - *Only applies to post types:* the names of the post types to display in the dropdown. Defaults to all public post types.
+ * `label`   - string - The descriptive text for this field. Defaults to the name of the taxonomy, or 'All types' for post types..
+ * `class`   - string - The class name for the field.
+ * `id`      - string - The ID attribute for the field.
+ * `all`     - string - The "All items" text for this field. Defaults to the 'all_items' label of the taxonomy.
+ * `options` - array  - For a taxonomy provide an array with the term slug as the key and the term name as the value, e.g. `array( 'term-1' => 'Term 1', 'term-2' => 'Term 2' );`, for post type supply an array of post type names.
 
 Example 1:
 
@@ -142,9 +142,10 @@ Yep.
 
 = 1.2 =
 
-Thursday 21 February 2013
+Friday 22 February 2013
 
 * Introduce an accepted value in the fields to display a post type dropdown
+* Add documentation for use of `options` value in a field for either post type or taxonomy
 
 = 1.1.1 =
 
