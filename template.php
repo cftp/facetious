@@ -76,10 +76,10 @@ function facetious( $args = array() ) {
 			case 'pt':
 
 				$post_types = array();
-				if ( isset( $val[ 'values' ] ) ) {
-					if ( ! is_array( $val[ 'values' ] ) )
-						$val[ 'values' ] = (array) $val[ 'values' ];
-					foreach ( $val[ 'values' ] as $pt ) {
+				if ( isset( $val[ 'options' ] ) ) {
+					if ( ! is_array( $val[ 'options' ] ) )
+						$val[ 'options' ] = (array) $val[ 'options' ];
+					foreach ( $val[ 'options' ] as $pt ) {
 						if ( is_object( $pto = get_post_type_object( $pt ) ) )
 							$post_types[ $pt ] = $pto;
 					}
