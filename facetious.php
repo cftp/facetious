@@ -3,7 +3,7 @@
 Plugin Name:  Facetious Search
 Plugin URI:   https://github.com/cftp/facetious
 Description:  A faceted search interface for WordPress
-Version:      1.1.1
+Version:      1.1.2
 Author:       <a href="http://johnblackbourn.com/">John Blackbourn</a> and <a href="http://codeforthepeople.com/">Code for the People</a>
 Text Domain:  facetious
 Domain Path:  /languages/
