@@ -57,14 +57,13 @@ class Facetious extends Facetious_Plugin {
 	/**
 	 * Redirects a client to a pretty URL after performing a Facetious search
 	 *
-	 * @param object $wp An object of the WP class
+	 * @param object $wp A WP class object (passed by ref)
 	 * @return null
 	 * @author Simon Wheatley
 	 **/
 	function parse_request( $wp ) {
 		if ( isset( $wp->query_vars[ 'facetious_post_type' ] ) ) {
 			$wp->query_vars[ 'post_type' ] = $wp->query_vars[ 'facetious_post_type' ];
-			// unset( $wp->query_vars[ 'facetious_post_type' ] );
 		}
 	}
 
