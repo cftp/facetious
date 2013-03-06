@@ -43,6 +43,7 @@ class Facetious extends Facetious_Plugin {
 		add_action( 'parse_request',        array( $this, 'parse_request' ) );
 		add_action( 'template_redirect',    array( $this, 'template_redirect' ) );
 		add_action( 'facetious',            'facetious' );
+		add_action( 'parse_query',          array( $this, 'parse_query' ) );
 
 		# Filters:
 		add_filter( 'query_vars',           array( $this, 'query_vars' ) );
@@ -65,6 +66,22 @@ class Facetious extends Facetious_Plugin {
 		if ( isset( $wp->query_vars[ 'facetious_post_type' ] ) ) {
 			$wp->query_vars[ 'post_type' ] = $wp->query_vars[ 'facetious_post_type' ];
 		}
+	}
+
+	/**
+	 * Explicitly set that this is_search, as without a 's'
+	 * query var it may be interpreted as one type of archive
+	 * or another.
+	 *
+	 * @param object $wp_query A WP_Query object (passed by ref)
+	 * @return null
+	 * @author Simon Wheatley
+	 **/
+	function parse_query( $wp_query ) {
+		if ( ! $wp_query->is_main_query() )
+			return;
+		if ( isset( $wp_query->query[ 'facetious' ] ) && ! empty( $wp_query->query[ 'facetious' ] ) )
+			$wp_query->is_search = true;
 	}
 
 	/**
