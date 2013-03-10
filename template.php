@@ -292,3 +292,14 @@ function facetious_get_available_months( $post_type = null ) {
 	return $available_months;
 
 }
+
+/**
+ * Is the existing query a Facetious query?
+ *
+ * @return bool True if true, natch
+ * @author 
+ **/
+function is_facetious() {
+	global $wp_query;
+	return (bool) $wp_query->get( 'facetious' );
+}
