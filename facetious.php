@@ -146,7 +146,7 @@ class Facetious extends Facetious_Plugin {
 
 		$parts = implode( '/', $parts );
 
-		wp_redirect( untrailingslashit( home_url() ) . "/{$base}/{$parts}/" );
+		wp_redirect( home_url( "/{$base}/{$parts}/" ) , 301 );
 		exit;
 
 	}
