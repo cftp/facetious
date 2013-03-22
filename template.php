@@ -303,3 +303,34 @@ function is_facetious() {
 	global $wp_query;
 	return (bool) $wp_query->get( 'facetious' );
 }
+
+/**
+ * Returns a Facetious URL from a WP_Query::query_vars like array
+ * of parameters.
+ *
+ * @param array $query A WP_Query::query like array of parameters
+ * @return string A Facetious format URL
+ * @author Simon Wheatley
+ **/
+function get_facetious_url( $query ) {
+	$facetious = Facetious::init();
+	if ( isset( $query[ 'post_type' ] ) )
+		$query[ 'facetious_post_type' ] = $query[ 'post_type' ];
+	return esc_url( $facetious->construct_query_url( $query ) );
+}
+
+/**
+ * Echoes a Facetious URL from a WP_Query::query_vars like array
+ * of parameters.
+ *
+ * @param array $query A WP_Query::query like array of parameters
+ * @return void (echoes)
+ * @author Simon Wheatley
+ **/
+function facetious_url( $query ) {
+	echo get_facetious_url( $query );
+}
+
+
+
+
