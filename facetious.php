@@ -162,7 +162,6 @@ class Facetious extends Facetious_Plugin {
 		foreach ( $query as $key => $val ) {
 			if ( 'post_type' == $key )
 				continue;
-			// var_dump( $key );
 			if ( '' !== $val ) {
 				$parts[] = $this->get_search_part( $key );
 				$parts[] = urlencode( stripslashes( $val ) );

@@ -308,6 +308,8 @@ function is_facetious() {
  * Returns a Facetious URL from a WP_Query::query_vars like array
  * of parameters.
  *
+ * Note that this function assumes the site is using pretty permalinks.
+ *
  * @param array $query A WP_Query::query like array of parameters
  * @return string A Facetious format URL
  * @author Simon Wheatley
