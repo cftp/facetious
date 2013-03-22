@@ -47,6 +47,25 @@ require_once 'template.php';
 class Facetious extends Facetious_Plugin {
 
 	/**
+	 * Singleton stuff.
+	 * 
+	 * @access @static
+	 * 
+	 * @return Facetious
+	 */
+	static public function init() {
+		static $instance = false;
+
+		if ( ! $instance ) {
+			$class = get_called_class();
+			$instance = new $class;
+		}
+
+		return $instance;
+
+	}
+
+	/**
 	 * Class constructor. Set up some filters and actions.
 	 *
 	 * @return null
@@ -55,17 +74,17 @@ class Facetious extends Facetious_Plugin {
 	function __construct() {
 
 		# Actions:
-		add_action( 'init',                 array( $this, 'init' ) );
-		add_action( 'admin_init',           array( $this, 'maybe_upgrade' ) );
-		add_action( 'parse_request',        array( $this, 'parse_request' ) );
-		add_action( 'template_redirect',    array( $this, 'template_redirect' ) );
+		add_action( 'init',                 array( $this, 'action_init' ) );
+		add_action( 'admin_init',           array( $this, 'action_admin_init' ) );
+		add_action( 'parse_request',        array( $this, 'action_parse_request' ) );
+		add_action( 'template_redirect',    array( $this, 'action_template_redirect' ) );
 		add_action( 'facetious',            'facetious' );
-		add_action( 'parse_query',          array( $this, 'parse_query' ) );
+		add_action( 'parse_query',          array( $this, 'action_parse_query' ) );
 
 		# Filters:
-		add_filter( 'query_vars',           array( $this, 'query_vars' ) );
-		add_filter( 'search_rewrite_rules', array( $this, 'search_rewrite_rules' ) );
-		add_filter( 'request',              array( $this, 'process_request' ) );
+		add_filter( 'query_vars',           array( $this, 'filter_query_vars' ) );
+		add_filter( 'search_rewrite_rules', array( $this, 'filter_search_rewrite_rules' ) );
+		add_filter( 'request',              array( $this, 'filter_request' ) );
 
 		# Set up the plugin from the parent class:
 		parent::__construct( __FILE__ );
@@ -79,7 +98,7 @@ class Facetious extends Facetious_Plugin {
 	 * @return null
 	 * @author Simon Wheatley
 	 **/
-	function parse_request( $wp ) {
+	function action_parse_request( $wp ) {
 		if ( isset( $wp->query_vars[ 'facetious_post_type' ] ) ) {
 			$wp->query_vars[ 'post_type' ] = $wp->query_vars[ 'facetious_post_type' ];
 		}
@@ -94,7 +113,7 @@ class Facetious extends Facetious_Plugin {
 	 * @return null
 	 * @author Simon Wheatley
 	 **/
-	function parse_query( $wp_query ) {
+	function action_parse_query( $wp_query ) {
 		if ( ! $wp_query->is_main_query() )
 			return;
 		if ( isset( $wp_query->query[ 'facetious' ] ) && ! empty( $wp_query->query[ 'facetious' ] ) )
@@ -107,12 +126,8 @@ class Facetious extends Facetious_Plugin {
 	 * @return null
 	 * @author John Blackbourn
 	 **/
-	function template_redirect() {
-
+	function action_template_redirect() {
 		global $wp_rewrite, $wp_query;
-
-		$parts = array();
-		$base  = $this->get_search_base();
 
 		if ( !$wp_rewrite->using_permalinks() )
 			return;
@@ -123,11 +138,30 @@ class Facetious extends Facetious_Plugin {
 			return;
 
 		# Bail if we're already viewing a pretty URL
+		$base  = $this->get_search_base();
 		if ( false !== strpos( $_SERVER['REQUEST_URI'], "/{$base}/" ) )
 			return;
 
+		wp_redirect( $this->construct_query_url( $wp_query->query ) , 301 );
+		exit;
+	}
+
+	/**
+	 * Constructs a Facetious URL from a WP_Query::query_vars like array
+	 * of parameters.
+	 *
+	 * @param array $query A WP_Query::query like array of parameters
+	 * @return string A Facetious format URL
+	 * @author Simon Wheatley
+	 **/
+	function construct_query_url( $query ) {
+		error_log( "SW: Query vars " . print_r( $query , true ) );
+		
+		$parts = array();
+		$base  = $this->get_search_base();
+
 		# Build the array containing alternating keys and values
-		foreach ( $wp_query->query as $key => $val ) {
+		foreach ( $query as $key => $val ) {
 			if ( 'post_type' == $key )
 				continue;
 			// var_dump( $key );
@@ -142,13 +176,9 @@ class Facetious extends Facetious_Plugin {
 		if ( 2 == count( $parts ) and in_array( $this->get_search_part( 's' ), $parts ) )
 			array_shift( $parts );
 
-		// var_dump( $parts ); exit;
-
 		$parts = implode( '/', $parts );
 
-		wp_redirect( home_url( "/{$base}/{$parts}/" ) , 301 );
-		exit;
-
+		return home_url( "/{$base}/{$parts}/" );
 	}
 
 	/**
@@ -159,7 +189,7 @@ class Facetious extends Facetious_Plugin {
 	 * @return array New list of rewrite rules for searches
 	 * @author John Blackbourn
 	 **/
-	function search_rewrite_rules( $rules ) {
+	function filter_search_rewrite_rules( $rules ) {
 
 		return array(
 			$this->get_search_base() . '/(.+)/?$' => 'index.php?facetious=$matches[1]',
@@ -245,11 +275,13 @@ class Facetious extends Facetious_Plugin {
 	/**
 	 * Add 'facetious' to the list of available query variables.
 	 *
+	 * @filter query_vars
+	 * 
 	 * @param $vars array Array goes in!
 	 * @return array Array comes out!
 	 * @author John Blackbourn
 	 **/
-	function query_vars( $vars ) {
+	function filter_query_vars( $vars ) {
 		$vars[] = 'facetious';
 		$vars[] = 'facetious_post_type';
 		return $vars;
@@ -258,11 +290,13 @@ class Facetious extends Facetious_Plugin {
 	/**
 	 * Populates the request query variables with those from our 'facetious' query variable.
 	 *
+	 * @filter request
+	 *
 	 * @param $query array Query variables for the current request
 	 * @return array Updated array of query variables from Facetious
 	 * @author John Blackbourn
 	 **/
-	function process_request( $query ) {
+	function filter_request( $query ) {
 
 		if ( !isset( $query['facetious'] ) )
 			return $query;
@@ -320,10 +354,12 @@ class Facetious extends Facetious_Plugin {
 	/**
 	 * Called on each admin screen load, this handles the upgrade routine when necessary.
 	 *
+	 * @action admin_init
+	 *
 	 * @return null
 	 * @author John Blackbourn
 	 **/
-	function maybe_upgrade() {
+	function action_admin_init() {
 
 		$op = 'facetious_dbv';
 
@@ -341,10 +377,12 @@ class Facetious extends Facetious_Plugin {
 	/**
 	 * Load localisation files.
 	 *
+	 * @action init
+	 *
 	 * @return null
 	 * @author John Blackbourn
 	 */
-	function init() {
+	function action_init() {
 		load_plugin_textdomain( 'facetious', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 	}
 
@@ -352,6 +390,4 @@ class Facetious extends Facetious_Plugin {
 
 defined( 'ABSPATH' ) or die();
 
-global $facetious;
-
-$facetious = new Facetious;
+Facetious::init();
