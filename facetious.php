@@ -165,7 +165,7 @@ class Facetious extends Facetious_Plugin {
 				continue;
 			if ( '' !== $val ) {
 				$parts[] = $this->get_search_part( $key );
-				$parts[] = urlencode( stripslashes( $val ) );
+				$parts[] = $this->encode( stripslashes( $val ) );
 			}
 		}
 
@@ -312,7 +312,7 @@ class Facetious extends Facetious_Plugin {
 
 		# Some plugins (eg. WPML) use $_GET['s'] directly, so we'll manually set it here to play nicely.
 		if ( isset( $query['s'] ) )
-			$_GET['s'] = $query['s'];
+			$_GET['s'] = addslashes( $query['s'] );
 
 		return $query;
 
@@ -347,13 +347,30 @@ class Facetious extends Facetious_Plugin {
 		for ( $i = 0; $i < count( $parts ); $i = ( $i + 2 ) ) {
 
 			$key = $this->get_search_var( $parts[$i] );
-			$val = urldecode( $parts[$i+1] );
+			$val = $this->decode( $parts[$i+1] );
 
 			$return[$key] = $val;
 
 		}
 
 		return $return;
+
+	}
+
+	# http://www.jampmark.com/web-scripting/5-solutions-to-url-encoded-slashes-problem-in-apache.html
+	function encode( $string ) {
+
+		$string = urlencode( $string );
+		$string = str_replace( array( '%2F', '%5C' ), array( '%252F', '%255C' ), $string );
+		return $string;
+
+	}
+
+	function decode( $string ) {
+
+		$string = str_replace( array( '%252F', '%255C' ), array( '%2F', '%5C' ), $string );
+		$string = urldecode( $string );
+		return $string;
 
 	}
 
