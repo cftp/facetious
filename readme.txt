@@ -1,5 +1,5 @@
 === Facetious ===
-Contributors: codeforthepeople, johnbillion, s1m0nd
+Contributors: codeforthepeople, johnbillion, s1m0nd, simonwheatley
 Tags: search, faceted, faceted search, advanced search
 Requires at least: 3.4
 Tested up to: 3.5
@@ -132,17 +132,17 @@ Yep.
 
 == Upgrade Notice ==
 
-= 1.1.1 =
-* Avoid double slashes in URLs when using WPML
-
-= 1.2 =
-* Introduce an accepted value in the fields to display a post type dropdown
+= 1.1.3 =
+* Avoid some encoding and slashing issues. Add some basic default styling to fields in the Facetious widget.
 
 == Changelog ==
 
-= 1.2 =
+= 1.1.3
 
-Friday 22 February 2013
+* Avoid some encoding and slashing issues.
+* Add some basic default stlying to fields in the Facetious widget.
+
+= 1.1.2 =
 
 * Introduce an accepted value in the fields to display a post type dropdown
 * Add documentation for use of `options` value in a field for either post type or taxonomy
