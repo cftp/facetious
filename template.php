@@ -316,7 +316,7 @@ function get_facetious_url( $query ) {
 	$facetious = Facetious::init();
 	if ( isset( $query[ 'post_type' ] ) )
 		$query[ 'facetious_post_type' ] = $query[ 'post_type' ];
-	return esc_url( $facetious->construct_query_url( $query ) );
+	return $facetious->construct_query_url( $query );
 }
 
 /**
@@ -328,7 +328,7 @@ function get_facetious_url( $query ) {
  * @author Simon Wheatley
  **/
 function facetious_url( $query ) {
-	echo get_facetious_url( $query );
+	echo esc_url( get_facetious_url( $query ) );
 }
 
 
