@@ -27,6 +27,15 @@ class Facetious_Widget extends WP_Widget {
 	 **/
     function widget( $args, $instance ) {
 
+    	$facetious = Facetious::init();
+
+    	wp_enqueue_style(
+    		'facetious_widget',
+    		$facetious->plugin_url( 'facetious.css' ),
+    		null,
+    		$facetious->plugin_ver( 'facetious.css' )
+    	);
+
 		echo $args['before_widget'];
 
 		if ( !empty( $instance['title'] ) )
@@ -198,5 +207,3 @@ class Facetious_Widget extends WP_Widget {
 }
 
 add_action( 'widgets_init', array( 'Facetious_Widget', 'register' ) );
-
-?>

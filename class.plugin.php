@@ -22,7 +22,7 @@ class Facetious_Plugin {
 	 * @return string URL
 	 * @author John Blackbourn
 	 **/
-	protected function plugin_url( $file = '' ) {
+	public function plugin_url( $file = '' ) {
 		return $this->plugin( 'url', $file );
 	}
 
@@ -33,7 +33,7 @@ class Facetious_Plugin {
 	 * @return string Filesystem path
 	 * @author John Blackbourn
 	 **/
-	protected function plugin_path( $file = '' ) {
+	public function plugin_path( $file = '' ) {
 		return $this->plugin( 'path', $file );
 	}
 
@@ -44,7 +44,7 @@ class Facetious_Plugin {
 	 * @return string Version
 	 * @author John Blackbourn
 	 **/
-	protected function plugin_ver( $file ) {
+	public function plugin_ver( $file ) {
 		return filemtime( $this->plugin_path( $file ) );
 	}
 
@@ -54,7 +54,7 @@ class Facetious_Plugin {
 	 * @return string Basename
 	 * @author John Blackbourn
 	 **/
-	protected function plugin_base() {
+	public function plugin_base() {
 		return $this->plugin( 'base' );
 	}
 
@@ -90,5 +90,3 @@ class Facetious_Plugin {
 }
 
 defined( 'ABSPATH' ) or die();
-
-?>
