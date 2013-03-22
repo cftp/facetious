@@ -155,8 +155,6 @@ class Facetious extends Facetious_Plugin {
 	 * @author Simon Wheatley
 	 **/
 	function construct_query_url( $query ) {
-		error_log( "SW: Query vars " . print_r( $query , true ) );
-		
 		$parts = array();
 		$base  = $this->get_search_base();
 
