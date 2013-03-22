@@ -162,7 +162,7 @@ class Facetious extends Facetious_Plugin {
 		foreach ( $query as $key => $val ) {
 			if ( 'post_type' == $key )
 				continue;
-			// var_dump( $key );
+
 			if ( '' !== $val ) {
 				$parts[] = $this->get_search_part( $key );
 				$parts[] = urlencode( stripslashes( $val ) );
@@ -335,6 +335,8 @@ class Facetious extends Facetious_Plugin {
 		if ( count( $parts ) % 2 )
 			array_unshift( $parts, 's' );
 
+		$return[ 'tax_query' ] = array();
+
 		# Loop over every even-indexed part and populate our query variable array
 		for ( $i = 0; $i < count( $parts ); $i = ( $i + 2 ) ) {
 
@@ -343,6 +345,21 @@ class Facetious extends Facetious_Plugin {
 
 			$return[$key] = $val;
 
+			# If the taxonomy value is '-' then we should retrieve 
+			# all posts associated with at least one term in the tax
+			$tax = $key;
+			if ( 'category_name' == $key )
+				$tax = 'category';
+			if ( taxonomy_exists( $tax ) && '-' == $val ) {
+				unset( $return[$key] );
+				unset( $return[$tax] );
+				$return[ 'tax_query' ][] = array(
+						'taxonomy' => $tax,
+						'field'    => 'id',
+						'terms'    => get_terms( $tax, array( 'fields' => 'ids' ) ),
+						'operator' => 'IN',
+				);
+			}
 		}
 
 		return $return;

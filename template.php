@@ -197,7 +197,9 @@ function facetious( $args = array() ) {
 				if ( !isset( $val['id'] ) )
 					$val['id'] = sprintf( 'facetious_filter_%s', $tax->name );
 				if ( !isset( $val['all'] ) )
-					$val['all'] = $tax->labels->all_items;
+					$val['all'] = _x( ' ', 'Used in the taxonomy dropdown to indicate "Any post whether associated with a term in this taxonomy or not"', 'facetious' );
+				if ( !isset( $val['any'] ) )
+					$val['any'] = sprintf( _x( 'Any %s', 'Used in the taxonomy dropdown to indicate "Any post which is associated with at least one term in this taxonomy"', 'facetious' ), $tax->labels->singular_name );
 
 				$out .= sprintf( '<p class="facetious_%s">', $tax->name );
 				$out .= sprintf( '<label for="%1$s">%2$s</label>',
@@ -212,6 +214,9 @@ function facetious( $args = array() ) {
 				);
 				$out .= sprintf( '<option value="">%s</option>',
 					esc_html( $val['all'] )
+				);
+				$out .= sprintf( '<option value="-">%s</option>',
+					esc_html( $val['any'] )
 				);
 				foreach ( $val['options'] as $value => $label ) {
 					$out .= sprintf( '<option value="%s"%s>%s</option>',
