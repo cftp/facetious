@@ -3,13 +3,14 @@
 Plugin Name:  Facetious Search
 Plugin URI:   https://github.com/cftp/facetious
 Description:  A faceted search interface for WordPress
-Version:      1.1.2
-Author:       <a href="http://johnblackbourn.com/">John Blackbourn</a> and <a href="http://codeforthepeople.com/">Code for the People</a>
+Version:      1.1.3
+Author:       Code for the People
+Author URI:   http://codeforthepeople.com/
 Text Domain:  facetious
 Domain Path:  /languages/
 License:      GPL v2 or later
 
-Copyright © 2012 John Blackbourn / Code for the People ltd
+Copyright © 2013 Code for the People ltd
 
                 _____________
                /      ____   \
@@ -40,9 +41,9 @@ GNU General Public License for more details.
 
 */
 
-require_once 'class.plugin.php';
-require_once 'class.widget.php';
-require_once 'template.php';
+require_once dirname( __FILE__ ) . '/class.plugin.php';
+require_once dirname( __FILE__ ) . '/class.widget.php';
+require_once dirname( __FILE__ ) . '/template.php';
 
 class Facetious extends Facetious_Plugin {
 
@@ -94,11 +95,11 @@ class Facetious extends Facetious_Plugin {
 	/**
 	 * Redirects a client to a pretty URL after performing a Facetious search
 	 *
-	 * @param object $wp A WP class object (passed by ref)
+	 * @param WP $wp A WP class object (passed by ref)
 	 * @return null
 	 * @author Simon Wheatley
 	 **/
-	function action_parse_request( $wp ) {
+	function action_parse_request( WP $wp ) {
 		if ( isset( $wp->query_vars[ 'facetious_post_type' ] ) ) {
 			$wp->query_vars[ 'post_type' ] = $wp->query_vars[ 'facetious_post_type' ];
 		}
@@ -109,11 +110,11 @@ class Facetious extends Facetious_Plugin {
 	 * query var it may be interpreted as one type of archive
 	 * or another.
 	 *
-	 * @param object $wp_query A WP_Query object (passed by ref)
+	 * @param WP_Query $wp_query A WP_Query object (passed by ref)
 	 * @return null
 	 * @author Simon Wheatley
 	 **/
-	function action_parse_query( $wp_query ) {
+	function action_parse_query( WP_Query $wp_query ) {
 		if ( ! $wp_query->is_main_query() )
 			return;
 		if ( isset( $wp_query->query[ 'facetious' ] ) && ! empty( $wp_query->query[ 'facetious' ] ) )
@@ -194,7 +195,7 @@ class Facetious extends Facetious_Plugin {
 	 * @return array New list of rewrite rules for searches
 	 * @author John Blackbourn
 	 **/
-	function filter_search_rewrite_rules( $rules ) {
+	function filter_search_rewrite_rules( array $rules ) {
 
 		return array(
 			$this->get_search_base() . '/(.+)/?$' => 'index.php?facetious=$matches[1]',
@@ -248,11 +249,11 @@ class Facetious extends Facetious_Plugin {
 
 		if ( !isset( $this->search_parts ) ) {
 			$this->search_parts = apply_filters( 'facetious_search_parts', array(
-				'paged'          => 'page',
+				'paged'               => 'page',
 				'facetious_post_type' => 'type',
-				'category_name'  => 'category',
-				'm'              => 'month',
-				's'              => 'keyword',
+				'category_name'       => 'category',
+				'm'                   => 'month',
+				's'                   => 'keyword',
 			) );
 		}
 
@@ -286,7 +287,7 @@ class Facetious extends Facetious_Plugin {
 	 * @return array Array comes out!
 	 * @author John Blackbourn
 	 **/
-	function filter_query_vars( $vars ) {
+	function filter_query_vars( array $vars ) {
 		$vars[] = 'facetious';
 		$vars[] = 'facetious_post_type';
 		return $vars;
@@ -301,7 +302,7 @@ class Facetious extends Facetious_Plugin {
 	 * @return array Updated array of query variables from Facetious
 	 * @author John Blackbourn
 	 **/
-	function filter_request( $query ) {
+	function filter_request( array $query ) {
 
 		if ( !isset( $query['facetious'] ) )
 			return $query;
