@@ -176,7 +176,15 @@ class Facetious extends Facetious_Plugin {
 
 		$parts = implode( '/', $parts );
 
-		return home_url( "/{$base}/{$parts}/" );
+		# We use untrailingslashit() here to avoid getting double-slashed URLs when using WPML
+		$url = untrailingslashit( home_url() ) . "/{$base}/{$parts}";
+
+		# Add a trailing slash if our permastruct has one
+		if ( '/' == substr( get_option( 'permalink_structure' ), -1 ) )
+			$url = trailingslashit( $url );
+
+		return $url;
+
 	}
 
 	/**
