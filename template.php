@@ -300,8 +300,7 @@ function facetious_get_available_months( $post_type = null ) {
  * @author 
  **/
 function is_facetious() {
-	global $wp_query;
-	return (bool) $wp_query->get( 'facetious' );
+	return isset( $GLOBALS['wp_query']->query_vars[ 'facetious' ] );
 }
 
 /**
