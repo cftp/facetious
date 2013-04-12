@@ -132,10 +132,15 @@ Yep.
 
 == Upgrade Notice ==
 
-= 1.1.3 =
-* Avoid some encoding and slashing issues. Add some basic default styling to fields in the Facetious widget.
+= 1.1.4 =
+
+* Remove some PHP 5.3-specific code to avoid a fatal error when running PHP 5.2.
 
 == Changelog ==
+
+= 1.1.4 =
+
+* Remove some PHP 5.3-specific code to avoid a fatal error when running PHP 5.2.
 
 = 1.1.3
 
