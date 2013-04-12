@@ -142,7 +142,7 @@ Yep.
 
 * Remove some PHP 5.3-specific code to avoid a fatal error when running PHP 5.2.
 
-= 1.1.3
+= 1.1.3 =
 
 * Avoid some encoding and slashing issues.
 * Add some basic default stlying to fields in the Facetious widget.
