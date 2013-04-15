@@ -97,6 +97,24 @@ Example 2:
 	)
 ) );`
 
+There are Facetious template functions, `get_facetious_url` (returns) and `facetious_url`, which output URLs in a Facetious style, by passing an array of arguments into it:
+
+Example:
+
+`$url = get_facetious_url( array( 'post_type' => 'report', 'sector' => 'health' ) );
+// $url will be: 'http://example.com/search/type/report/sector/health/'`
+
+There are Facetious template functions equivalent to `the_terms` and `get_the_term_list` in WordPress core:
+
+The `get_the_facetious_term_list` template function returns an HTML list of links to Facetious searches with the value for the requested taxonomy set to each of the terms associated with this post. For example, for a post of type which is associated with the terms 'Bebop' and 'Big Band' in the genre taxonomy, the links in the HTML list returned will have these URLs: `http://example.com/search/genre/bebop/` and `http://example.com/search/genre/big-band/`. You can also pass in additional Facetious query parameters, as in this example:
+
+`$list = get_the_facetious_term_list( get_the_ID(), array( 'post_type' => 'release' ), 'genre', '<p>Genre(s): ', ', ', '</p>' );
+// Returns: <p>Genre(s): <a href="http://example.com/search/type/release/genre/bebop/" rel="tag">Bebop</a>, <a href="http://example.com/search/type/release/genre/big-band/" rel="tag">Big Band</a></p>`
+
+The `the_facetious_terms` template function returns an HTML list of links to Facetious searches is the same as `get_the_facetious_term_list`, except that it prints rather than returns.
+
+You can use `get_current_facetious_query` to return the Facetious query args for the current page.
+
 == Installation ==
 
 You can install this plugin directly from your WordPress dashboard:

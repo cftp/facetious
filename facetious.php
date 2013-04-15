@@ -398,6 +398,17 @@ class Facetious extends Facetious_Plugin {
 	}
 
 	/**
+	 * Returns any current Facetious query as a WP_Query::query_vars 
+	 * like array of parameters.
+	 *
+	 * @return array A WP_Query::query like array of parameters
+	 * @author Simon Wheatley
+	 **/
+	function get_current_query() {
+		return $this->parse_search( $GLOBALS[ 'wp_query' ]->query );
+	}
+
+	/**
 	 * Load localisation files.
 	 *
 	 * @action init
