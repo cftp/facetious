@@ -325,7 +325,7 @@ class Facetious extends Facetious_Plugin {
 	 * @author John Blackbourn
 	 **/
 	function parse_search( $query ) {
-
+		
 		$return = array();
 		$parts  = explode( '/', $query );
 

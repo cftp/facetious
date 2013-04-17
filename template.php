@@ -338,16 +338,16 @@ function facetious_url( $query ) {
  * Note that this function assumes the site is using pretty permalinks.
  *
  * @param int $id Post ID.
- * @param array $query_default A WP_Query::query like array of parameters
  * @param string $taxonomy Taxonomy name.
+ * @param array $query_default A WP_Query::query like array of parameters
  * @param string $before Optional. Before list.
  * @param string $sep Optional. Separate items using this.
  * @param string $after Optional. After list.
- * @return null|bool False on WordPress error. Returns null when displaying.
+ * @return void
  * @author Simon Wheatley
  **/
-function the_facetious_terms( $id, $query_default, $taxonomy, $before, $sep, $after ) {
-	$term_list = get_the_facetious_term_list( $id, $query_default, $taxonomy, $before, $sep, $after );
+function the_facetious_terms( $id, $taxonomy, $query_default = array(), $before = '', $sep = '', $after = '' ) {
+	$term_list = get_the_facetious_term_list( $id, $taxonomy, $query_default, $before, $sep, $after );
 
 	if ( is_wp_error( $term_list ) )
 		return false;
@@ -361,22 +361,22 @@ function the_facetious_terms( $id, $query_default, $taxonomy, $before, $sep, $af
  * Note that this function assumes the site is using pretty permalinks.
  *
  * @param int $id Post ID.
- * @param array $query_default A WP_Query::query like array of parameters
  * @param string $taxonomy Taxonomy name.
+ * @param array $query_default A WP_Query::query like array of parameters
  * @param string $before Optional. Before list.
  * @param string $sep Optional. Separate items using this.
  * @param string $after Optional. After list.
- * @return null|bool False on WordPress error. Returns null when displaying.
+ * @return string|obj False on WordPress error. HTML on success, or an empty string if no terms available.
  * @author Simon Wheatley
  **/
-function get_the_facetious_term_list( $id, $query_default, $taxonomy, $before, $sep, $after ) {
+function get_the_facetious_term_list( $id, $taxonomy, $query_default = array(), $before = '', $sep = '', $after = '' ) {
 	$terms = get_the_terms( $id, $taxonomy );
 
 	if ( is_wp_error( $terms ) )
 		return $terms;
 
 	if ( empty( $terms ) )
-		return false;
+		return '';
 
 	if ( ! is_array( $query_default ) )
 		$query_default = array();
@@ -384,7 +384,6 @@ function get_the_facetious_term_list( $id, $query_default, $taxonomy, $before, $
 	foreach ( $terms as $term ) {
 		$query = array_merge( $query_default, array( $taxonomy => $term->slug ) );
 		$link = get_facetious_url( $query );
-		var_dump( $link );
 		
 		if ( is_wp_error( $link ) )
 			return $link;
@@ -407,7 +406,7 @@ function get_current_facetious_query() {
 	if ( ! is_facetious() )
 		return array();
 	$facetious = Facetious::init();
-	return $facetious->parse_search( $_SERVER[ 'REQUEST_URI' ] );
+	return $facetious->parse_search( get_query_var( 'facetious' ) );
 }
 
 
