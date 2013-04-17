@@ -3,7 +3,7 @@
 Plugin Name:  Facetious Search
 Plugin URI:   https://github.com/cftp/facetious
 Description:  A faceted search interface for WordPress
-Version:      1.1.3
+Version:      1.1.4
 Author:       Code for the People
 Author URI:   http://codeforthepeople.com/
 Text Domain:  facetious
@@ -57,10 +57,8 @@ class Facetious extends Facetious_Plugin {
 	static public function init() {
 		static $instance = false;
 
-		if ( ! $instance ) {
-			$class = get_called_class();
-			$instance = new $class;
-		}
+		if ( ! $instance )
+			$instance = new Facetious;
 
 		return $instance;
 

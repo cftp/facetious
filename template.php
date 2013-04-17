@@ -108,7 +108,7 @@ function facetious( $args = array() ) {
 					esc_attr( $val['id'] ),
 					$val['label']
 				);
-				$out .= sprintf( '<select name="facetious_post_type" class="%1$s" id="%2$s" />',
+				$out .= sprintf( '<select name="facetious_post_type" class="%1$s" id="%2$s">',
 					esc_attr( $val['class'] ),
 					esc_attr( $val['id'] )
 				);
@@ -149,7 +149,7 @@ function facetious( $args = array() ) {
 					esc_attr( $val['id'] ),
 					$val['label']
 				);
-				$out .= sprintf( '<select name="m" class="%1$s" id="%2$s" />',
+				$out .= sprintf( '<select name="m" class="%1$s" id="%2$s">',
 					esc_attr( $val['class'] ),
 					esc_attr( $val['id'] )
 				);
@@ -205,7 +205,7 @@ function facetious( $args = array() ) {
 					$val['label']
 				);
 
-				$out .= sprintf( '<select name="%1$s" class="%2$s" id="%3$s" />',
+				$out .= sprintf( '<select name="%1$s" class="%2$s" id="%3$s">',
 					$tax->query_var,
 					esc_attr( $val['class'] ),
 					esc_attr( $val['id'] )
