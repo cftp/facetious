@@ -349,7 +349,7 @@ function facetious_url( $query ) {
 function the_facetious_terms( $id, $taxonomy, $query_default = array(), $before = '', $sep = '', $after = '' ) {
 	$term_list = get_the_facetious_term_list( $id, $taxonomy, $query_default, $before, $sep, $after );
 
-	if ( is_wp_error( $term_list ) )
+	if ( empty( $term_list ) || is_wp_error( $term_list ) )
 		return false;
 
 	echo apply_filters( 'facetious_the_terms', $term_list, $query_default, $taxonomy, $before, $sep, $after );
