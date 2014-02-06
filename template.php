@@ -244,6 +244,10 @@ function facetious( $args = array() ) {
 					$val['all'] = __('All Items');
 				}
 				
+				if ( empty( $val['options'] ) or !isset( $val['options'] ) ) {
+					continue;
+				}
+				
 				$out .= sprintf( '<p class="facetious_%s">', esc_attr( $key ) );
 				$out .= sprintf( '<label for="%1$s">%2$s</label>',
 						esc_attr( $val['id'] ),
