@@ -2,7 +2,7 @@
 Contributors: codeforthepeople, johnbillion, s1m0nd, simonwheatley
 Tags: search, faceted, faceted search, advanced search
 Requires at least: 3.4
-Tested up to: 3.5
+Tested up to: 3.8.1
 Stable tag: trunk
 License: GPL v2 or later
 
@@ -17,6 +17,7 @@ A Facetious form can include dropdown lists of:
  * Taxonomy terms (tags, categories, and custom taxonomies)
  * Months
  * Plus a conventional search input box
+ * Custom options (such as sort order)
 
 You can also restrict searches by post type _(singular)_, if you so desire.
 
@@ -91,9 +92,29 @@ Example 2:
 			'class' => 'my_tax_class',
 			'id'    => 'my_tax_id',
 			'all'   => 'All terms'
-		)
+		),
 		'custom_tax_2',
-		'm'
+		'm',
+	)
+) );`
+
+Example 3:
+
+`do_action( 'facetious', array(
+	'submit' => 'Search',
+	'fields' => array(
+		's',
+		'orderby' => array(
+			'label' => 'Order by',
+			'class' => 'orderby',
+			'id'    => 'orderby',
+			'all'   => 'Relevance',
+			'options' => array(
+				'post_date' => 'Date',
+				'title' => 'Title',
+				'modified' => 'Last modified',
+			),
+		),
 	)
 ) );`
 
@@ -155,6 +176,11 @@ Yep.
 * Remove some PHP 5.3-specific code to avoid a fatal error when running PHP 5.2.
 
 == Changelog ==
+
+= 1.2 =
+
+* Fix for "Strict Standards" notice
+* Added support for custom fields, see Example 3 in Usage
 
 = 1.1.4 =
 

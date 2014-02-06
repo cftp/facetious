@@ -241,7 +241,7 @@ function facetious( $args = array() ) {
 				}
 				
 				if ( !isset( $val['all'] ) ) {
-					$val['all'] = __('All Items');
+					$val['all'] = __('All Items', 'facetious');
 				}
 				
 				if ( empty( $val['options'] ) or !isset( $val['options'] ) ) {
