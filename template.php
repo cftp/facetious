@@ -169,7 +169,7 @@ function facetious( $args = array() ) {
 				break;
 
 			# Taxonomy dropdown:
-			default:
+			case taxonomy_exists( $key ):
 
 				$tax = get_taxonomy( $key );
 
@@ -223,6 +223,55 @@ function facetious( $args = array() ) {
 				$out .= '</select>';
 				$out .= '</p>';
 
+				break;
+				
+			# custom fields
+			default:
+				
+				if ( empty( $val['label'] ) or ( true === $val['label'] ) ) {
+					$val['label'] = esc_attr( $key );
+				}
+				
+				if ( !isset( $val['class'] ) ) {
+					$val['class'] = sprintf( 'facetious_filter facetious_filter_%s', esc_attr( $key ) );
+				}
+				
+				if ( !isset( $val['id'] ) ) {
+					$val['id'] = sprintf( 'facetious_filter_%s', esc_attr( $key ) );
+				}
+				
+				if ( !isset( $val['all'] ) ) {
+					$val['all'] = __('All Items', 'facetious');
+				}
+				
+				if ( empty( $val['options'] ) or !isset( $val['options'] ) ) {
+					continue;
+				}
+				
+				$out .= sprintf( '<p class="facetious_%s">', esc_attr( $key ) );
+				$out .= sprintf( '<label for="%1$s">%2$s</label>',
+						esc_attr( $val['id'] ),
+						$val['label']
+				);
+				
+				$out .= sprintf( '<select name="%1$s" class="%2$s" id="%3$s" />',
+						esc_attr( $key ),
+						esc_attr( $val['class'] ),
+						esc_attr( $val['id'] )
+				);
+				$out .= sprintf( '<option value="">%s</option>',
+						esc_html( $val['all'] )
+				);
+				foreach ( $val['options'] as $value => $label ) {
+					$out .= sprintf( '<option value="%s"%s>%s</option>',
+							esc_attr( $value ),
+							selected( $value, get_query_var( $key ), false ),
+							esc_html( $label )
+					);
+				}
+				$out .= '</select>';
+				$out .= '</p>';
+				
 				break;
 
 		}

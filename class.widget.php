@@ -200,7 +200,7 @@ class Facetious_Widget extends WP_Widget {
 	 *
 	 * @author John Blackbourn
 	 **/
-	function register() {
+	public static function register() {
 		register_widget( get_class() );
 	}
 
